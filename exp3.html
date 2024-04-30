@@ -1,0 +1,160 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a class="active" href="exp3.html">Exp3</a></li>
+        <li ><a href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li ><a href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li ><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <h1>Find minimum and maximum number from the list using Divide & Conquer methodology. Compare performance with traditional way of finding minimum and maximum.</h1>
+    <div class=row>
+        <div class="col-1">
+            
+            <pre>
+                <h1>Program 1:</h1>
+#include &lt;stdio.h&gt;
+#include &lt;limits.h&gt;
+
+struct MinMax {
+    int min;
+    int max;
+};
+
+struct MinMax findMinMax(int arr[], int low, int high) {
+    struct MinMax mm, left_mm, right_mm;
+    int mid;
+
+    // If the list has only one element
+    if (low == high) {
+        mm.min = arr[low];
+        mm.max = arr[low];
+        return mm;
+    }
+
+    // If the list has two elements
+    if (high == low + 1) {
+        if (arr[low] &gt; arr[high]) {
+            mm.min = arr[high];
+            mm.max = arr[low];
+        } else {
+            mm.min = arr[low];
+            mm.max = arr[high];
+        }
+        return mm;
+    }
+
+    // If the list has more than two elements, divide and conquer
+    mid = (low + high) / 2;
+    left_mm = findMinMax(arr, low, mid);
+    right_mm = findMinMax(arr, mid + 1, high);
+
+    // Compare minimums and maximums of two halves
+    mm.min = (left_mm.min &lt; right_mm.min) ? left_mm.min : right_mm.min;
+    mm.max = (left_mm.max &gt; right_mm.max) ? left_mm.max : right_mm.max;
+
+    return mm;
+}
+
+int main() {
+    int arr[] = {1000, 11, 445, 1, 330, 3000};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    struct MinMax mm = findMinMax(arr, 0, n - 1);
+
+    printf("Minimum element: %d\n", mm.min);
+    printf("Maximum element: %d\n", mm.max);
+
+    return 0;
+}
+
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+                <h1>Algorithm</h1>
+1. Start
+2. If the list has only one element:
+- Return that element as both the minimum and maximum.
+3. If the list has two elements:
+- Compare the two elements.
+- Return the smaller element as the minimum and the larger element as the maximum.
+4. Otherwise:
+- Divide the list into two halves.
+- Recursively find the minimum and maximum in each half.
+- Compare the minimums and maximums of the two halves.
+- Return the overall minimum and maximum.
+5. End
+
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a class="active" href="index.html">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li ><a href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li ><a href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li ><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <div class=row>
+        <div class="col-1">
+            <h1>Aim:- To implement Insertion sort and Selection sort.</h1>
+            <pre>
+
+                <h1>Program: </h1>
+                #include&lt;stdio.h&gt;
+                // Function to perform Insertion Sort
+                void insertionSort(int arr[], int n) {
+                    int i, key, j;
+                    for (i = 1; i &lt; n; i++) {
+                        key = arr[i];
+                        j = i - 1;
+
+                        while (j &gt;= 0 && arr[j] &gt; key) {
+                            arr[j + 1] = arr[j];
+                            j = j - 1;
+                        }
+                        arr[j + 1] = key;
+                    }
+                }
+
+                // Function to perform Selection Sort
+                void selectionSort(int arr[], int n) {
+                    int i, j, minIndex, temp;
+                    for (i = 0; i &lt; n - 1; i++) {
+                        minIndex = i;
+                        for (j = i + 1; j &lt; n; j++) {
+                            if (arr[j] &lt; arr[minIndex])
+                                minIndex = j;
+                        }
+                        temp = arr[minIndex];
+                        arr[minIndex] = arr[i];
+                        arr[i] = temp;
+                    }
+                }
+
+                int main() {
+                    int numbers[100], n, i;
+
+                    // Input size of the array
+                    printf("Enter the number of elements of the array: ");
+                    scanf("%d", &n);
+
+                    // Input elements of the array
+                    for(i = 0; i &lt; n; i++) {
+                        printf("Enter numbers[%d]: ", i);
+                        scanf("%d", &numbers[i]);
+                    }
+
+                    // Sorting using Insertion Sort
+                    printf("\nINSERTION SORT\n");
+                    insertionSort(numbers, n);
+
+                    // Printing the sorted array
+                    printf("Sorted array using Insertion Sort: ");
+                    for(i = 0; i &lt; n; i++) {
+                        printf("%d ", numbers[i]);
+                    }
+                    printf("\n");
+
+                    // Sorting using Selection Sort
+                    printf("\nSELECTION SORT\n");
+                    selectionSort(numbers, n);
+
+                    // Printing the sorted array
+                    printf("Sorted array using Selection Sort: ");
+                    for(i = 0; i &lt; n; i++) {
+                        printf("%d ", numbers[i]);
+                    }
+                    printf("\n");
+
+                    return 0;
+                }
+
+
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+                ┌───────────────────────────────────────────────────┐
+                │           Insertion Sort Algorithm:               │
+                │                                                   │
+                │ 1. For each element starting from the second      │
+                │    element to the last:                           │
+                │     - Set the current element as the key.         │
+                │     - Initialize a pointer to the element just    │
+                │       before the current element.                 │
+                │     - While the pointer is greater than or equal  │
+                │       to zero and the element at the pointer is   │
+                │       greater than the key:                       │
+                │          - Move the element at the pointer one    │
+                │            position to the right.                 │
+                │          - Decrement the pointer.                 │
+                │     - Insert the key at the position obtained by  │
+                │       the last pointer position plus one.         │
+                ├───────────────────────────────────────────────────┤
+                │           Selection Sort Algorithm:               │
+                │                                                   │
+                │ 1. For each element starting from the first       │
+                │    element to the second-to-last element:         │
+                │     - Set the current element as the minimum.     │
+                │     - For each element from the next element to   │
+                │       the last:                                   │
+                │          - If the current element is less than    │
+                │            the minimum, update the minimum to     │
+                │            the current element.                   │
+                │     - Swap the current element with the minimum   │
+                │       found.                                      │
+                └───────────────────────────────────────────────────┘
+
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>

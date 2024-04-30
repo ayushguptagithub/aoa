@@ -1,0 +1,161 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li><a href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li><a  class="active" href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <h1>Aim:- Implement 8-queens problem using backtracking approach.</h1>
+    <div class=row>
+        <div class="col-1">
+            <pre>
+                <h1>Program 1:</h1>
+#include &lt;stdio.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define N 8
+
+void printSolution(int board[N][N]) {
+    for (int i = 0; i &lt; N; i++) {
+        for (int j = 0; j &lt; N; j++)
+            printf(" %d ", board[i][j]);
+        printf("\n");
+    }
+}
+
+bool isSafe(int board[N][N], int row, int col) {
+    int i, j;
+    for (i = 0; i &lt; col; i++)
+        if (board[row][i])
+            return false;
+    for (i = row, j = col; i &gt;= 0 && j &gt;= 0; i--, j--)
+        if (board[i][j])
+            return false;
+    for (i = row, j = col; j &gt;= 0 && i &lt; N; i++, j--)
+        if (board[i][j])
+            return false;
+    return true;
+}
+
+bool solveNQueensUtil(int board[N][N], int col) {
+    if (col &gt;= N)
+        return true;
+    for (int i = 0; i &lt; N; i++) {
+        if (isSafe(board, i, col)) {
+            board[i][col] = 1;
+            if (solveNQueensUtil(board, col + 1))
+                return true;
+            board[i][col] = 0;
+        }
+    }
+    return false;
+}
+
+bool solveNQueens() {
+    int board[N][N] = { {0} };
+    if (solveNQueensUtil(board, 0) == false) {
+        printf("Solution does not exist\n");
+        return false;
+    }
+    printSolution(board);
+    return true;
+}
+
+int main() {
+    solveNQueens();
+    return 0;
+}
+
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+                <h1>Algorithm :</h1>
+1. Start
+2. Define a function printSolution to print the chessboard configuration.
+3. Define a function isSafe to check if it's safe to place a queen in the current position.
+4. Define a recursive function solveNQueensUtil to solve the N-Queens problem using backtracking:
+   a. Base case: If all queens are placed (column index col reaches N), return true.
+   b. Try placing a queen in each row of the current column (col):
+      i. Check if it's safe to place a queen in this position using the isSafe function.
+      ii. If safe, place the queen in the current position and recur to place the rest of the queens in the next column (col + 1).
+      iii. If placing the queen doesn't lead to a solution, backtrack by removing the queen from the current position.
+   c. If no row is safe to place the queen in the current column, return false.
+5. Define a function solveNQueens to initialize the chessboard, call the solveNQueensUtil function, and print the solution.
+6. In the main function, call the solveNQueens function to solve the N-Queens problem.
+7. End
+
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>

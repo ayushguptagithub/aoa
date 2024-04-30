@@ -1,0 +1,161 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li ><a class="active" href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li ><a href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li ><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <h1>Aim:- To implement Knapsack Problem.</h1>
+    <div class=row>
+        <div class="col-1">
+            <pre>
+#include &lt;stdio.h&gt;
+
+int main() {
+    float weight[50], profit[50], ratio[50], Totalvalue, temp, capacity, amount;
+    int i, j, num;
+
+    printf("Enter number of items: ");
+    scanf("%d", &num);
+
+    // Input weights and profits for each item
+    for (i = 0; i &lt; num; i++) {
+        printf("\nEnter Weight and Profit for item[%d]: ", i);
+        scanf("%f %f", &weight[i], &profit[i]);
+    }
+
+    printf("\nEnter capacity of knapsack: ");
+    scanf("%f", &capacity);
+
+    // Calculate profit-to-weight ratio for each item
+    for (i = 0; i &lt; num; i++) {
+        ratio[i] = profit[i] / weight[i];
+    }
+
+    // Sort items based on their profit-to-weight ratio (descending order)
+    for (i = 0; i &lt; num; i++) {
+        for (j = i + 1; j &lt; num; j++) {
+            if (ratio[i] &lt; ratio[j]) {
+                temp = ratio[j];
+                ratio[j] = ratio[i];
+                ratio[i] = temp;
+
+                temp = weight[j];
+                weight[j] = weight[i];
+                weight[i] = temp;
+
+                temp = profit[j];
+                profit[j] = profit[i];
+                profit[i] = temp;
+            }
+        }
+    }
+
+    // Greedy approach to solve the Knapsack Problem
+    printf("\nKnapsack Problem using Greedy Method: \n");
+    for (i = 0; i &lt; num; i++) {
+        if (weight[i] &gt; capacity)
+            break;
+        else {
+            Totalvalue += profit[i];
+            capacity -= weight[i];
+        }
+    }
+    if (i &lt; num)
+        Totalvalue += (ratio[i] * capacity);
+
+    printf("\nThe maximum value is: %f\n", Totalvalue);
+
+    return 0;
+}
+                
+
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+1. Start
+2. Initialize a table K[][] to store the maximum values that can be obtained for different weights and items.
+3. Iterate over each item and each possible weight from 0 to the maximum capacity W of the knapsack:
+    - If the current item's weight is greater than the current weight capacity, 
+        set the value of K[i][w] to the value of K[i-1][w] (same as the previous row).
+    - Otherwise, set the value of K[i][w] to the maximum of:
+        - The value of the current item plus the value obtained from the remaining weight capacity (K[i-1][w - wt[i]]) 
+        - The value obtained from excluding the current item (K[i-1][w]).
+4. The value in K[n][W] represents the maximum value that can be obtained with the given items and weight capacity.
+5. End
+                
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>

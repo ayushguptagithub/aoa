@@ -1,0 +1,228 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">Exp1</a></li>
+        <li><a class="active" href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li ><a href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li ><a href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li ><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <h1>Aim:- To implement Insertion sort and Selection sort.</h1>
+    <div class=row>
+        <div class="col-1">
+            
+            <pre>
+                <h1>Program 1:(Quick Sort)</h1>
+                #include &lt;stdio.h&gt;
+
+                    void swap(int* a, int* b) {
+                        int temp = *a;
+                        *a = *b;
+                        *b = temp;
+                    }
+                    
+                    int partition(int arr[], int low, int high) {
+                        int pivot = arr[high];
+                        int i = low - 1;
+                        for (int j = low; j &lt; high; j++) {
+                            if (arr[j] &lt; pivot) {
+                                i++;
+                                swap(&arr[i], &arr[j]);
+                            }
+                        }
+                        swap(&arr[i + 1], &arr[high]);
+                        return i + 1;
+                    }
+                    
+                    void quickSort(int arr[], int low, int high) {
+                        if (low &lt; high) {
+                            int pi = partition(arr, low, high);
+                            quickSort(arr, low, pi - 1);
+                            quickSort(arr, pi + 1, high);
+                        }
+                    }
+                    
+                    int main() {
+                        int arr[] = {10, 7, 8, 9, 1, 5};
+                        int n = sizeof(arr) / sizeof(arr[0]);
+                        quickSort(arr, 0, n - 1);
+                        printf("Sorted array: ");
+                        for (int i = 0; i &lt; n; i++)
+                            printf("%d ", arr[i]);
+                        printf("\n");
+                        return 0;
+                    }
+                    
+
+                    <h1>Program 2(Merge Sort)</h1>
+                    #include &lt;stdio.h&gt;
+
+                    void merge(int arr[], int l, int m, int r) {
+                        int n1 = m - l + 1;
+                        int n2 = r - m;
+                        int L[n1], R[n2];
+                        for (int i = 0; i &lt; n1; i++)
+                            L[i] = arr[l + i];
+                        for (int j = 0; j &lt; n2; j++)
+                            R[j] = arr[m + 1 + j];
+                        int i = 0, j = 0, k = l;
+                        while (i &lt; n1 && j &lt; n2) {
+                            if (L[i] &lt;= R[j]) {
+                                arr[k] = L[i];
+                                i++;
+                            } else {
+                                arr[k] = R[j];
+                                j++;
+                            }
+                            k++;
+                        }
+                        while (i &lt; n1) {
+                            arr[k] = L[i];
+                            i++;
+                            k++;
+                        }
+                        while (j &lt; n2) {
+                            arr[k] = R[j];
+                            j++;
+                            k++;
+                        }
+                    }
+
+                    void mergeSort(int arr[], int l, int r) {
+                        if (l &lt; r) {
+                            int m = l + (r - l) / 2;
+                            mergeSort(arr, l, m);
+                            mergeSort(arr, m + 1, r);
+                            merge(arr, l, m, r);
+                        }
+                    }
+
+                    int main() {
+                        int arr[] = {12, 11, 13, 5, 6, 7};
+                        int arr_size = sizeof(arr) / sizeof(arr[0]);
+                        mergeSort(arr, 0, arr_size - 1);
+                        printf("Sorted array: ");
+                        for (int i = 0; i &lt; arr_size; i++)
+                            printf("%d ", arr[i]);
+                        printf("\n");
+                        return 0;
+                    }
+
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+                <h1>Quick Sort Algorithm</h1>
+                
+               Quick Sort Algorithm            
+
+            1. Choose a pivot element from the array.     
+                                                        
+            2. Partition the array around the pivot such  
+                that all elements less than the pivot are   
+                moved to its left, and all elements greater 
+                than the pivot are moved to its right.      
+                                                        
+            3. Recursively apply the above steps to the   
+                sub-arrays formed by the partitioning      
+                until the entire array is sorted.          
+                                                        
+            4. Base Case: If the size of the sub-array is 
+                1 or 0, it is considered sorted.           
+
+
+            <h1>Merge Sort Algorithm</h1>
+            
+           
+               Merge Sort Algorithm            
+
+            1. Divide the array into two halves.          
+                                                        
+            2. Recursively sort the two halves.           
+                                                        
+            3. Merge the sorted halves to produce the     
+                sorted array.                              
+                                                        
+                - Compare elements from the two halves     
+                and merge them into a single sorted      
+                array, maintaining the order.            
+                                                        
+                - Repeat this process until all elements   
+                from both halves have been merged.       
+                                                        
+            4. Base Case: If the size of the array is     
+                1 or 0, it is considered sorted.           
+
+
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>

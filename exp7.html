@@ -1,0 +1,178 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li><a href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a href="exp6.html">Exp6</a></li>
+        <li><a  class="active"   href="exp7.html">Exp7</a></li>
+        <li><a href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <h1>Aim:- Implement all pairs shortest path- Floyd Warshall Algorithm.</h1>
+    <div class=row>
+        <div class="col-1">
+            <pre>
+                <h1>Program 1:</h1>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+void floydWarshall(int **graph, int n);
+
+int main(void) {
+    int n, i, j;
+    
+    printf("Enter the number of vertices: ");
+    scanf("%d", &n);
+    
+    // Allocate memory for the graph
+    int **graph = (int **)malloc(n * sizeof(int *));
+    for (i = 0; i &lt; n; i++) {
+        graph[i] = (int *)malloc(n * sizeof(int));
+    }
+    
+    // Input edges (weights) from the user
+    printf("Enter the edges (weights) for the graph:\n");
+    for (i = 0; i &lt; n; i++) {
+        for (j = 0; j &lt; n; j++) {
+            printf("Weight from vertex %d to vertex %d (or -1 if no edge): ", i, j);
+            scanf("%d", &graph[i][j]);
+            
+            // If no edge, set a large value (representing infinity)
+            if (graph[i][j] == -1) {
+                graph[i][j] = 999;
+            }
+        }
+    }
+    
+    // Print the original graph
+    printf("The original graph is:\n");
+    for (i = 0; i &lt; n; i++) {
+        for (j = 0; j &lt; n; j++) {
+            printf("%d ", graph[i][j]);
+        }
+        printf("\n");
+    }
+    
+    floydWarshall(graph, n);
+    
+    // Print the shortest path matrix
+    printf("The shortest path matrix is:\n");
+    for (i = 0; i &lt; n; i++) {
+        for (j = 0; j &lt; n; j++) {
+            printf("%d ", graph[i][j]);
+        }
+        printf("\n");
+    }
+    
+    // Free allocated memory
+    for (i = 0; i &lt; n; i++) {
+        free(graph[i]);
+    }
+    free(graph);
+    
+    return 0;
+}
+
+void floydWarshall(int **graph, int n) {
+    int i, j, k;
+    for (k = 0; k &lt; n; k++) {
+        for (i = 0; i &lt; n; i++) {
+            for (j = 0; j &lt; n; j++) {
+                if (graph[i][j] &gt; graph[i][k] + graph[k][j]) {
+                    graph[i][j] = graph[i][k] + graph[k][j];
+                }
+            }
+        }
+    }
+}
+
+
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+                <h1>Algorithm :</h1>
+1. Start
+2. Prompt the user to enter the number of vertices (n) in the graph.
+3. Allocate memory for the adjacency matrix representing the graph.
+4. Prompt the user to input the weights of edges between vertices.
+5. Initialize the adjacency matrix with the provided weights, setting -1 to represent no edge and a large value to represent infinity.
+6. Print the original graph.
+7. For each vertex k in the graph:
+     a. For each pair of vertices i and j:
+          i. If the shortest path from vertex i to vertex j passing through vertex k is shorter than the current shortest path, update the shortest path.
+8. Print the shortest path matrix.
+9. Deallocate memory.
+10. End
+
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>

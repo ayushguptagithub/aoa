@@ -1,0 +1,183 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: red;
+        }
+
+        pre {
+            margin-left: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border:#979595;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #979595;
+}
+
+.active {
+  background-color: #9fa1a0;
+}
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">Exp1</a></li>
+        <li><a href="exp2.html">Exp2</a></li>
+        <li><a href="exp3.html">Exp3</a></li>
+        <li><a href="exp4.html">Exp4</a></li>
+        <li><a href="exp5.html">Exp5</a></li>
+        <li><a class="active"  href="exp6.html">Exp6</a></li>
+        <li><a href="exp7.html">Exp7</a></li>
+        <li><a href="exp8.html">Exp8</a></li>
+        <li><a href="exp9.html">Exp9</a></li>
+        <li><a href="exp10.html">Exp10</a></li>
+        <li><a href="exp11.html">Exp11</a></li>
+        <li><a href="exp12.html">Exp12</a></li>
+        <li><a href="exp13.html">Exp13</a></li>
+        
+      </ul>
+    <hr>
+    <h1>Aim:- Implement single source shortest path- Bellman Ford algorithm</h1>
+    <div class=row>
+        <div class="col-1">
+            <pre>
+                <h1>Program 1:</h1>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;limits.h&gt;
+
+struct Edge {
+    int source, destination, weight;
+};
+
+struct Graph {
+    int V, E;
+    struct Edge* edge;
+};
+
+struct Graph* createGraph(int V, int E) {
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    graph-&gt;V = V;
+    graph-&gt;E = E;
+    graph-&gt;edge = (struct Edge*)malloc(E * sizeof(struct Edge));
+    return graph;
+}
+
+void finalSolution(int dist[], int n) {
+    printf("\nVertex\tDistance from source vertex\n");
+    for (int i = 1; i &lt; n; ++i) {
+        printf("%d\t\t%d\n", i, dist[i]);
+    }
+}
+
+void bellmanFord(struct Graph* graph, int source) {
+    int V = graph-&gt;V;
+    int E = graph-&gt;E;
+    int storeDistance[V];
+    for (int i = 0; i &lt; V; i++)
+        storeDistance[i] = INT_MAX;
+    storeDistance[source] = 0;
+    
+    for (int i = 1; i &lt; E; i++) {
+        for (int j = 0; j &lt; E; j++) {
+            int u = graph-&gt;edge[j].source;
+            int v = graph-&gt;edge[j].destination;
+            int weight = graph-&gt;edge[j].weight;
+            if (storeDistance[u] != INT_MAX && storeDistance[u] + weight &lt; storeDistance[v]) {
+                storeDistance[v] = storeDistance[u] + weight;
+            }
+        }
+    }
+    
+    for (int i = 0; i &lt; E; i++) {
+        int u = graph-&gt;edge[i].source;
+        int v = graph-&gt;edge[i].destination;
+        int weight = graph-&gt;edge[i].weight;
+        if (storeDistance[u] != INT_MAX && storeDistance[u] + weight &lt; storeDistance[v]) {
+            printf("Graph contains negative cycle\n");
+            return;
+        }
+    }
+    finalSolution(storeDistance, V);
+}
+
+int main() {
+    int V, E, S;
+    printf("Enter number of vertices in graph: ");
+    scanf("%d", &V);
+    printf("Enter number of edges in graph: ");
+    scanf("%d", &E);
+    printf("Enter your source vertex number: ");
+    scanf("%d", &S);
+    struct Graph* graph = createGraph(V, E);
+    printf("\nEnter edge properties (source, destination, weight respectively):\n");
+    for (int i = 0; i &lt; E; i++) {
+        printf("Edge %d: ", i + 1);
+        scanf("%d %d %d", &graph-&gt;edge[i].source, &graph-&gt;edge[i].destination, &graph-&gt;edge[i].weight);
+    }
+    bellmanFord(graph, S);
+    return 0;
+}
+
+            </pre>
+        </div>
+        <div class="col-2">
+            <pre>
+                <h1>Algorithm :</h1>
+1. Start
+2. Prompt the user to enter the number of vertices (V) and edges (E) of the graph.
+3. Create a graph data structure with V vertices and E edges.
+4. Prompt the user to enter the source vertex number (S).
+5. Initialize an array to store distances from the source vertex to all other vertices.
+6. Set the distance of the source vertex to 0 and initialize all other distances to infinity.
+7. Iterate E times:
+     a. For each edge (u, v) with weight w:
+          i. Update the distance of vertex v to the minimum of its current distance and the sum of the distance of vertex u and the weight of the edge (u, v).
+8. Check for the presence of negative cycles:
+     a. Iterate over all edges:
+          i. If the distance of vertex u plus the weight of the edge (u, v) is less than the distance of vertex v, then a negative cycle exists.
+9. Print the distances from the source vertex to all other vertices.
+10. End
+
+            </pre>
+        </div>
+
+    </div>
+    <hr>
+</body>
+
+</html>
